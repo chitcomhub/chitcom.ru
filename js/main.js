@@ -1,37 +1,37 @@
 function teamCard(user, row) {
   const col = createElement('div');
-  col.className =  'col-md-6';
+  addClass(col, 'col-md-6')
 
   const card = createElement('div');
-  card.className = 'card flex-md-row mb-4 box-shadow h-md-250';
+  addClass(card, 'card flex-md-row mb-4 box-shadow h-md-250')
 
   const image = createElement('img');
-  image.className = 'card-img-left flex-auto d-none d-md-block';
+  addClass(image, 'card-img-left flex-auto d-none d-md-block')
   image.src = './img/pictures/efive.jpg';
-  image.style = 'width: 200px; height: 250px;';
+  addStyle(image, 'width: 200px; height: 250px;')
   
   const cardBody = createElement('div');
-  cardBody.className =  'card-body d-flex flex-column align-items-start';
+  addClass(cardBody, 'card-body d-flex flex-column align-items-start')
 
   const h3 = createElement('h3');
-  h3.className =  'mb-0';
+  addClass(h3, 'mb-0')
   h3.textContent = user.director;
 
   const specialization = createElement('div');
-  specialization.className =  'mb-1 text-muted';
+  addClass(specialization, 'mb-1 text-muted')
   specialization.textContent = user.title;
 
   const shortBio = createElement('p');
-  shortBio.className =  'card-text mb-auto';
+  addClass(shortBio, 'card-text mb-auto')
   user.description = user.description.substring(0, 150);
   shortBio.textContent = `${user.description}...`;
 
   const skill = createElement('strong');
-  skill.className = 'd-inline-block mb-2 text-primary';
-  skill.style = 'font-size: xx-large;';
+  addClass(skill, 'd-inline-block mb-2 text-primary')
+  addStyle(skill, 'font-size: xx-large;')
   
   const skillIcon = createElement('i');
-  skillIcon.className =  'devicon-python-plain-wordmark';
+  addClass(skillIcon, 'devicon-python-plain-wordmark')
 
   row.appendChild(col);
   col.appendChild(card);
@@ -57,13 +57,12 @@ request.onload = function () {
     data.forEach(movie => {
       if (count %2 === 0) {
         var row = createElement('div');
-        row.className =  'row mb-2';
+        addClass(row, 'row mb-2')
         container.appendChild(row);
       } else {
         var row = container.lastChild;
         container.appendChild(row);
       }
-      
       teamCard(movie, row);
       count += 1
     });
@@ -75,6 +74,14 @@ request.onload = function () {
 }
 
 request.send();
+
+function addStyle(el, stl) {
+  return el.style = stl
+}
+
+function addClass(el, cls) {
+  return el.className = cls
+}
 
 function getElemById(el) {
   return document.getElementById(el);
