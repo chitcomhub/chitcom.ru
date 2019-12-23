@@ -1,7 +1,17 @@
-function cardHTML (user,row) {
+function cardHTML (user,row, col) {
+  /**
+   * Summary.
+   * This function populates cards with details about programmers
+   * 
+   * Description.
+   * Each card will have such details as name, picture, skills, specialization and contact info
+   * 
+   * @user  json          User information received through an API-call to the backend
+   * @row   DOM.element   New row is generated when two cards are written to the current row
+   * @col   DOM.elemenet  Each row has two columns which will contain Cards
+   */
   
   let htmlCard = `
-   
       <div class="card flex-md-row mb-4 box-shadow h-md-250">
         <img class="card-img-left flex-auto d-none d-md-block" src="../img/pictures/efive.jpg" style="width: 200px; height: 250px;">
         <div class="card-body d-flex flex-column align-items-start">
@@ -14,20 +24,11 @@ function cardHTML (user,row) {
           </strong>
         </div>
       </div>
-    
     `
-  const col = createElement('div')
-  addClass(col, 'col-md-6')
-  row.appendChild(col);
+
   col.innerHTML = htmlCard;
 
 }
-
-
-const app = getElemById('root');
-const container = app.childNodes[1];
-
-const url = 'https://ghibliapi.herokuapp.com/films';
 
 const getCards = async (url) => {
   try {
@@ -55,9 +56,13 @@ function generateHTMLForCards(data){
           var row = container.lastChild;
           container.appendChild(row);
         }
-        cardHTML(movie, row);
-        count += 1
+        const col = createElement('div')
+        addClass(col, 'col-md-6')
+        row.appendChild(col);
 
+        cardHTML(movie, row, col);
+        
+        count += 1
       });
     } else {
       const errorMessage = createElement('marquee');
@@ -66,9 +71,15 @@ function generateHTMLForCards(data){
     }
   }
 
+  const app = getElemById('root');
+  const container = app.childNodes[1];
+  
+  const url = 'https://ghibliapi.herokuapp.com/films';
   getCards(url);
 
 
+
+//Supporting functions  
 function addStyle(el, stl) {
   return el.style = stl
 }
